@@ -343,3 +343,36 @@ h1 {
 .instruction-panel ul li i {
   color: #f0c674; /* Give the star icon a golden color */
 }
+
+@media screen and (max-width: 600px) {
+  h1 {
+    font-size: 1.5rem; /* Smaller heading for small screens */
+  }
+  
+  .instruction-panel {
+    position: static; /* Avoid fixed positioning on small screens */
+    width: auto; /* Take the full width of the screen */
+    margin: 10px; /* Add some margin around the panel */
+    box-shadow: none; /* Simplify design by removing shadows */
+  }
+
+  .content-wrap {
+    padding: 10px; /* Reduce padding for small screens */
+  }
+
+  .action-btn {
+    padding: 15px; /* Increase padding for larger touch targets */
+    margin: 10px; /* Increase margin for more space around buttons */
+  }
+  
+  /* Adapt font sizes and margins for smaller screens */
+  p, .call-to-action, .solution-highlight {
+    font-size: 1rem;
+    margin: 10px 0;
+  }
+  
+  /* Make sure navigation and other elements fit well on small screens */
+  .navigation {
+    flex-direction: column; /* Stack elements vertically */
+  }
+}
