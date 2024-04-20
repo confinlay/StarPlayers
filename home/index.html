@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Star Players</title>
+    <script defer src="script.js"></script>
+  </head>
+  <body>
+    <section class="hidden">
+      <div class="music-container" id="music-container">
+        <div class="music-info">
+          <h4 id="title"></h4>
+          <div class="progress-container" id="progress-container">
+            <div class="progress" id="progress"></div>
+          </div>
+        </div>
+  
+        <audio src="music/ukulele.mp3" id="audio"></audio>
+        <div class="img-container">
+          <img src="images/ukulele.jpg" alt="music-cover" id="cover" />
+        </div>
+        <div class="navigation">
+          <button id="prev" class="action-btn">
+            <i class="fas fa-backward"></i>
+          </button>
+          <button id="play" class="action-btn action-btn-big">
+            <i class="fas fa-play"></i>
+          </button>
+          <button id="next" class="action-btn">
+            <i class="fas fa-forward"></i>
+          </button>
+          <button id="shuffle" class="action-btn">
+            <i class="fas fa-random"></i>
+          </button>
+          <button id="starplay" class="action-btn">
+            <div class="icon-combo">
+              <i id="star-play" class="fas fa-star"></i>
+              <i id="star-shuffle" class="fas fa-random"></i> <!-- or fa-play for a play icon -->
+            </div>           
+          </button>        
+        </div>
+      </div>
+      <div id="song-list"></div>
+
+      <div class="instruction-panel">
+        <h2>How to Use the App</h2>
+        <ul>
+          <li>Click the <i class="fas fa-star"></i> icon on songs to add them to Star Players.</li>
+          <li>Press the StarPlay button  to shuffle only your Star Players.</li>
+          <li>Use the regular play, pause, next, and previous controls to navigate your music.</li>
+        </ul>
+      </div>
+
+    </section>
+  </body>
+</html>
