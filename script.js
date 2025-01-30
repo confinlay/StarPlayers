@@ -97,23 +97,12 @@ const shuffleBtn = document.getElementById('shuffle');
 // Keep track of song
 let songIndex = 0;
 
-// Initially load song details into DOM
-loadSong(songs[playerState.currentSongIndex]);
-
-const observer = new IntersectionObserver((entries) => {
-	entries.forEach((entry) => {
-		if (entry.isIntersecting) {
-			entry.target.classList.add('show');
-		} else {
-			entry.target.classList.remove('show');
-		}
-	})
-}, {
-	// rootMargin: '-100px -100px 100px 100px'
-})
-
-const hiddenElements = document.querySelectorAll('.hidden');
-hiddenElements.forEach((el) => observer.observe(el));
+// Initialize player
+function initializePlayer() {
+	loadSong(songs[playerState.currentSongIndex]);
+	updatePlaylistUI();
+	attachEventListeners();
+}
 
 function renderSongList() {
 	const songListContainer = document.getElementById('song-list');
