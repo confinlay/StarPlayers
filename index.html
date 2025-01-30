@@ -9,112 +9,84 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
     />
     <link rel="stylesheet" href="style.css" />
-    <title>Star Players</title>
+    <title>Star Players - Smart Playlist Management</title>
     <script defer src="script.js"></script>
   </head>
   <body>
-    <section id="application-intro" class="content-section hidden">
+    <header class="content-section">
       <div class="content-wrap">
-        <h1>Conor Finlay: Spotify Internship Application</h1>
+        <h1>Star Players: Smart Playlist Management</h1>
         <p class="intro">
-          When you curate a playlist, every song has its place, whether it's for background ambiance or your absolute favorites that never fail to get you singing along.
-        </p>
-        <p>
-          Yet, we've all been there—scrolling through our playlists, seeking out those favorites for a quick mood boost, or when we want to share our top picks with friends.
-        </p>
-        <p class="problem-statement">
-          The other option? You create multiple versions of the same playlist: one for those times when you need an extensive mix, and another pared-down to just the essentials.
-        </p>
-        <p class="solution-highlight">
-          What if you didn't have to duplicate playlists anymore?
-        </p>
-        <p>
-          What if you could have your cake and eat it too—enjoy the full array of your carefully chosen tunes and, with a simple tap, switch to a list of your favorites within that very playlist?
-        </p>
-        <p class="call-to-action">
-          Say goodbye to playlist redundancy and hello to effortless control.
-        </p>
-        <p>
-          Your favorite tracks are now just a star away from taking center stage, without the clutter of multiple playlists.
-        </p>
-        <p class="teaser">
-          With this new feature, it's your music, your rules—enjoy it your way, every time.
+          Transform your playlist experience with Star Players - where your favorite tracks take center stage.
         </p>
       </div>
-    </section>
-    <section id="feature-introduction" class="content-section hidden">
-      <div class="content-wrap">
-        <h1>Introducing: Star Players</h1>
-        <p>
-          As part of my application for Spotify, I've developed this (very) simple web app to introduce my feature concept: "Star Players". 
-          Think of it as a VIP-section for your playlists.
-        </p>
-        <p>
-          This feature lets you take the reins and choose your personal hits from any playlist you've curated.
-        </p>
-        <p>
-          In the app demo below, you'll find the usual music player functions: play, pause, skip, and shuffle.
-        </p>
-        <p class="solution-highlight">
-          Here's the new headliner: the StarPlay button.
-        </p>
-        <p>
-          It works alongside the shuffle function, allowing you to toggle between playing all songs or just your 'Star Players'—the songs you've marked as your top picks.
-        </p>
-        <p class="call-to-action">
-          With StarPlay, you're the DJ, curating the beats that deserve the spotlight on your personal stage.
-        </p>
-        <p class="p2">
-          PS: Rest easy, all tunes here are copyright-free and ready for your mixing.
-        </p>
-      </div>
-    </section>
+    </header>
+
+    <main>
+      <section id="feature-introduction" class="content-section">
+        <div class="content-wrap">
+          <h2>Elevate Your Listening Experience</h2>
+          <p>
+            Star Players introduces a smarter way to manage your playlists. No more creating duplicate playlists just to separate your favorites - now you can mark your top picks with a star and switch between playing all tracks or just your starred selections.
+          </p>
+          <p class="solution-highlight">
+            One playlist, two experiences - it's that simple.
+          </p>
+        </div>
+      </section>
+      
+      <section id="music-player" class="content-section">
+        <div class="music-container" id="music-container">
+          <div class="music-info">
+            <h4 id="title"></h4>
+            <div class="progress-container" id="progress-container">
+              <div class="progress" id="progress"></div>
+            </div>
+          </div>
     
-    <section class="hidden">
-      <div class="music-container" id="music-container">
-        <div class="music-info">
-          <h4 id="title"></h4>
-          <div class="progress-container" id="progress-container">
-            <div class="progress" id="progress"></div>
+          <audio src="music/ukulele.mp3" id="audio"></audio>
+          <div class="img-container">
+            <img src="images/ukulele.jpg" alt="music-cover" id="cover" />
+          </div>
+          <div class="navigation">
+            <button id="prev" class="action-btn" title="Previous">
+              <i class="fas fa-backward"></i>
+            </button>
+            <button id="play" class="action-btn action-btn-big" title="Play/Pause">
+              <i class="fas fa-play"></i>
+            </button>
+            <button id="next" class="action-btn" title="Next">
+              <i class="fas fa-forward"></i>
+            </button>
+            <button id="shuffle" class="action-btn" title="Shuffle">
+              <i class="fas fa-random"></i>
+            </button>
+            <button id="starplay" class="action-btn" title="Play Starred Songs">
+              <div class="icon-combo">
+                <i id="star-play" class="fas fa-star"></i>
+                <i id="star-shuffle" class="fas fa-random"></i>
+              </div>           
+            </button>        
           </div>
         </div>
-  
-        <audio src="music/ukulele.mp3" id="audio"></audio>
-        <div class="img-container">
-          <img src="images/ukulele.jpg" alt="music-cover" id="cover" />
-        </div>
-        <div class="navigation">
-          <button id="prev" class="action-btn">
-            <i class="fas fa-backward"></i>
-          </button>
-          <button id="play" class="action-btn action-btn-big">
-            <i class="fas fa-play"></i>
-          </button>
-          <button id="next" class="action-btn">
-            <i class="fas fa-forward"></i>
-          </button>
-          <button id="shuffle" class="action-btn">
-            <i class="fas fa-random"></i>
-          </button>
-          <button id="starplay" class="action-btn">
-            <div class="icon-combo">
-              <i id="star-play" class="fas fa-star"></i>
-              <i id="star-shuffle" class="fas fa-random"></i> <!-- or fa-play for a play icon -->
-            </div>           
-          </button>        
-        </div>
-      </div>
-      <div id="song-list"></div>
 
-      <div class="instruction-panel">
-        <h2>How to Use the App</h2>
-        <ul>
-          <li>Click the <i class="fas fa-star"></i> icon on songs to add them to Star Players.</li>
-          <li>Press the StarPlay button  to shuffle only your Star Players.</li>
-          <li>Use the regular play, pause, next, and previous controls to navigate your music.</li>
-        </ul>
-      </div>
+        <div class="instruction-panel">
+          <h2>Quick Guide</h2>
+          <ul>
+            <li><i class="fas fa-star"></i> Click the star icon on any song to mark it as a favorite</li>
+            <li><i class="fas fa-random"></i> Use shuffle to mix up your playlist</li>
+            <li><i class="icon-combo"><i class="fas fa-star"></i><i class="fas fa-random"></i></i> StarPlay mode plays only your starred songs</li>
+          </ul>
+        </div>
 
-    </section>
+        <div id="song-list" class="song-list-container"></div>
+      </section>
+    </main>
+
+    <footer class="content-section">
+      <div class="content-wrap">
+        <p class="copyright">Created by Conor Finlay</p>
+      </div>
+    </footer>
   </body>
 </html>

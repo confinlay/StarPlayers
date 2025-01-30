@@ -11,27 +11,82 @@ const cover = document.getElementById('cover');
 const currTime = document.querySelector('#currTime');
 const durTime = document.querySelector('#durTime');
 
-// Song titles
+// Song titles with metadata
 const songTitles = {
-	"AgainstAllOdds": "Against All Odds",
-	"AlienQueen": "Alien Queen",
-	"ANewBeginning": "A New Beginning",
-	"BeTheOne": "Be The One",
-	"Dreams": "Dreams",
-	"Elevate": "Elevate",
-	"GetToYou": "Get To You",
-	"GoingHigher": "Going Higher",
-	"Higher": "Higher",
-	"ITry": "I Try",
-	"Summer": "Summer",
-	"Sunny": "Sunny",
-	"ThereForYou": "There For You",
-	"Ukelele": "Ukelele",
-	"Waterfall": "Waterfall"
-  };
+	"AgainstAllOdds": {
+		title: "Against All Odds",
+		artist: "Inspirational Beats"
+	},
+	"AlienQueen": {
+		title: "Alien Queen",
+		artist: "Space Vibes"
+	},
+	"ANewBeginning": {
+		title: "A New Beginning",
+		artist: "Fresh Start"
+	},
+	"BeTheOne": {
+		title: "Be The One",
+		artist: "Motivational Tracks"
+	},
+	"Dreams": {
+		title: "Dreams",
+		artist: "Night Sounds"
+	},
+	"Elevate": {
+		title: "Elevate",
+		artist: "Up & Above"
+	},
+	"GetToYou": {
+		title: "Get To You",
+		artist: "Journey On"
+	},
+	"GoingHigher": {
+		title: "Going Higher",
+		artist: "Sky High"
+	},
+	"Higher": {
+		title: "Higher",
+		artist: "Peak Performance"
+	},
+	"ITry": {
+		title: "I Try",
+		artist: "Deep Focus"
+	},
+	"Summer": {
+		title: "Summer",
+		artist: "Seasonal Vibes"
+	},
+	"Sunny": {
+		title: "Sunny",
+		artist: "Good Days"
+	},
+	"ThereForYou": {
+		title: "There For You",
+		artist: "Support System"
+	},
+	"Ukelele": {
+		title: "Ukelele",
+		artist: "Island Tunes"
+	},
+	"Waterfall": {
+		title: "Waterfall",
+		artist: "Nature Sounds"
+	}
+};
+
 const songs = Object.keys(songTitles);
 let shuffledSongs = [];
-let starPlayers = [];
+let starPlayers = new Set(JSON.parse(localStorage.getItem('starPlayers')) || []);
+let currentPlaylist = songs;
+
+// Player state
+const playerState = {
+	currentSongIndex: 0,
+	isPlaying: false,
+	isShuffle: false,
+	isStarPlay: false
+};
 
 let isShuffle = false;
 let starPlay = false;
@@ -39,12 +94,11 @@ const starShuffleButton = document.getElementById('star-shuffle');
 const starPlayButton = document.getElementById('star-play')
 const shuffleBtn = document.getElementById('shuffle');
 
-
 // Keep track of song
 let songIndex = 0;
 
 // Initially load song details into DOM
-loadSong(songs[songIndex]);
+loadSong(songs[playerState.currentSongIndex]);
 
 const observer = new IntersectionObserver((entries) => {
 	entries.forEach((entry) => {
@@ -67,11 +121,11 @@ function renderSongList() {
   
 	songs.forEach((song, index) => {
 	  const songElement = document.createElement('div');
-	  songElement.textContent = songTitles[song];
+	  songElement.textContent = songTitles[song].title;
 	  songElement.classList.add('song-item');
 	  songElement.id = `song-${index}`;
 	  songElement.innerHTML = `
-	  <span class="song-title">${songTitles[song]}</span>
+	  <span class="song-title">${songTitles[song].title}</span>
 	  <i class="fas fa-star star-btn"></i>
 	  `;
 
@@ -80,7 +134,7 @@ function renderSongList() {
 		  event.stopPropagation(); // Prevent the click from triggering the song item's click event
 		  toggleStar(index);
 		  // Optionally, visually toggle the star's active state
-		  starBtn.classList.toggle('starred', starPlayers.includes(songs[index]));
+		  starBtn.classList.toggle('starred', starPlayers.has(song));
 	  });
 		
 		
@@ -118,15 +172,14 @@ function renderSongList() {
 function updateStarPlayersUI() {
     // Loop through all star buttons and update their classes based on whether their song is in favorites
     document.querySelectorAll('.star-btn').forEach((btn, index) => {
-        btn.classList.toggle('starred', starPlayers.includes(songs[index]));
+        btn.classList.toggle('starred', starPlayers.has(songs[index]));
     });
     // Plus, any additional UI updates for the favorites list itself
 }
 
-
 // Update song details
 function loadSong(song) {
-  title.innerText = songTitles[song];
+  title.innerText = `${songTitles[song].title} - ${songTitles[song].artist}`;
   audio.src = `music/${song}.mp3`;
   cover.src = `images/${song}.jpg`;
   renderSongList();
@@ -161,18 +214,18 @@ function nextSong() {
 		}
 		loadSong(shuffledSongs[songIndex]);
 	} else if (starPlay){
-		if (starPlayers.length == 0){
+		if (starPlayers.size === 0){
 			toggleStarPlay();
 			nextSong();
 			return;
 		}
-		if (songIndex == starPlayers.length - 1){
+		if (songIndex == starPlayers.size - 1){
 			shuffleArray(starPlayers);
 			songIndex = 0;
 		} else {
-			songIndex = (songIndex + 1) % starPlayers.length; // Loop within the shuffledSongs
+			songIndex = (songIndex + 1) % starPlayers.size; // Loop within the shuffledSongs
 		}
-		loadSong(starPlayers[songIndex]);
+		loadSong(Array.from(starPlayers)[songIndex]);
 		console.log(starPlayers.toString());
 	} else {
 		songIndex = (songIndex + 1) % songs.length; // Loop within the original songs array
@@ -191,25 +244,24 @@ function prevSong() {
 		}
 		loadSong(shuffledSongs[songIndex]);
 	} else if (starPlay){
-		if (starPlayers.length == 0) {
+		if (starPlayers.size === 0) {
 			toggleStarPlay();
 			prevSong();
 			return;
 		}
 		if (songIndex == 0){
 			shuffleArray(starPlayers);
-			songIndex = starPlayers.length - 1;
+			songIndex = starPlayers.size - 1;
 		} else {
-			songIndex = (songIndex - 1) % starPlayers.length;
+			songIndex = (songIndex - 1) % starPlayers.size;
 		}
-		loadSong(starPlayers[songIndex]);
+		loadSong(Array.from(starPlayers)[songIndex]);
 	} else {
 		songIndex = (songIndex - 1) % songs.length; // Loop within the original songs array
 		loadSong(songs[songIndex]);
 	}
   	playSong();
 }
-
 
 // Update progress bar
 function updateProgress(e) {
@@ -331,7 +383,7 @@ function toggleShuffle() {
 
 function toggleStarPlay() {
     if (!starPlay) { // Only toggle if starPlay is currently false
-		if (starPlayers.length == 0){
+		if (starPlayers.size === 0){
 			alert('You need to choose some Star Players before activating StarPlay!');
 			return;
 		}
@@ -351,19 +403,18 @@ function toggleStarPlay() {
         starPlayButton.classList.remove('active');
 		starShuffleButton.classList.remove('active');
         // Additional logic to revert any changes made by starPlay if needed
-		songIndex = songs.indexOf(starPlayers[songIndex]);
+		songIndex = songs.indexOf(Array.from(starPlayers)[songIndex]);
     }
 }
 
 function toggleStar(songIndex) {
-    const songName = songs[songIndex];
-    const isStarPlayer = starPlayers.includes(songName);
-    if (isStarPlayer) {
+    const song = songs[songIndex];
+    if (starPlayers.has(song)) {
         // Remove from favorites
-        starPlayers = starPlayers.filter(starPlayer => starPlayer !== songName);
+        starPlayers.delete(song);
     } else {
         // Add to favorites
-        starPlayers.push(songName);
+        starPlayers.add(song);
     }
     // Optionally, update the UI to reflect the change
     updateStarPlayersUI();
