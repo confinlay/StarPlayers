@@ -1,11 +1,98 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// Welcome to Astro! Everything in this file will be moved to components
 ---
 
 <Layout>
-	<Welcome />
+	<header class="content-section fade-in">
+		<div class="content-wrap">
+			<h1>Star Players: Smart Playlist Management</h1>
+			<p class="intro">
+				Transform your playlist experience with Star Players - where your favorite tracks take center stage.
+			</p>
+		</div>
+	</header>
+
+	<main>
+		<section id="feature-introduction" class="content-section fade-in">
+			<div class="content-wrap">
+				<h2>Elevate Your Listening Experience</h2>
+				<p>
+					Star Players introduces a smarter way to manage your playlists. No more creating duplicate playlists just to separate your favorites - now you can mark your top picks with a star and switch between playing all tracks or just your starred selections.
+				</p>
+				<p class="solution-highlight">
+					One playlist, two experiences - it's that simple.
+				</p>
+			</div>
+		</section>
+		
+		<section id="music-player" class="content-section fade-in">
+			<div class="music-container" id="music-container">
+				<div class="music-info">
+					<h4 id="title"></h4>
+					<div class="progress-container" id="progress-container">
+						<div class="progress" id="progress"></div>
+					</div>
+				</div>
+		
+				<audio src="music/ukulele.mp3" id="audio"></audio>
+				<div class="img-container">
+					<img src="images/ukulele.jpg" alt="music-cover" id="cover" />
+				</div>
+				<div class="navigation">
+					<button id="prev" class="action-btn" title="Previous">
+						<i class="fas fa-backward"></i>
+					</button>
+					<button id="play" class="action-btn action-btn-big" title="Play/Pause">
+						<i class="fas fa-play"></i>
+					</button>
+					<button id="next" class="action-btn" title="Next">
+						<i class="fas fa-forward"></i>
+					</button>
+					<button id="shuffle" class="action-btn" title="Shuffle">
+						<i class="fas fa-random"></i>
+					</button>
+					<button id="starplay" class="action-btn" title="Play Starred Songs">
+						<div class="icon-combo">
+							<i id="star-play" class="fas fa-star"></i>
+							<i id="star-shuffle" class="fas fa-random"></i>
+						</div>           
+					</button>        
+				</div>
+			</div>
+
+			<div class="instruction-panel">
+				<h2>Quick Guide</h2>
+				<ul>
+					<li><i class="fas fa-star"></i> Click the star icon on any song to mark it as a favorite</li>
+					<li><i class="fas fa-random"></i> Use shuffle to mix up your playlist</li>
+					<li><i class="icon-combo"><i class="fas fa-star"></i><i class="fas fa-random"></i></i> StarPlay mode plays only your starred songs</li>
+				</ul>
+			</div>
+
+			<div id="song-list" class="song-list-container"></div>
+		</section>
+	</main>
+
+	<footer class="content-section fade-in">
+		<div class="content-wrap">
+			<p class="copyright">Created by Conor Finlay</p>
+		</div>
+	</footer>
+
+	<link
+		rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
+	/>
 </Layout>
+
+<script>
+	// Import and initialize the player script
+	import "../scripts/player.js";
+</script>
+
+<style>
+	/* Import the main styles */
+	@import "../styles/main.css";
+</style>
