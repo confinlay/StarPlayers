@@ -21,6 +21,7 @@ const songTitles = {
 };
 const songs = Object.keys(songTitles);
 const noStarsMessage = "You haven't starred any songs yet! Star a few songs, and then try again.";
+const baseUrl = '/StarPlayers';
 
 // Helper: Fisher-Yates shuffle that returns a *new* array
 function shuffleArray(array) {
@@ -84,7 +85,7 @@ export default function Player() {
     if (audioRef.current) {
       const currentSrcName = audioRef.current.src.split('/').pop().split('.')[0];
       if (currentSrcName !== currentSongKey) {
-        audioRef.current.src = `music/${currentSongKey}.mp3`;
+        audioRef.current.src = `${baseUrl}/music/${currentSongKey}.mp3`;
         if (playerState.isPlaying) {
           audioRef.current.play();
         }
@@ -240,7 +241,7 @@ export default function Player() {
             <div className="flex items-center gap-4 bg-white/5 rounded-lg p-4">
               <div className="w-[min(128px,20vw)] h-[min(128px,20vw)] relative">
                 <img
-                  src={`images/${currentSong}.jpg`}
+                  src={`${baseUrl}/images/${currentSong}.jpg`}
                   alt={`${songTitles[currentSong].title} Cover`}
                   className="rounded-md object-cover w-full h-full"
                 />
