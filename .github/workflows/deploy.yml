@@ -20,18 +20,21 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '23.7.0'
+          node-version: '18'  # Use LTS version
 
       - name: Install dependencies and build
         run: |
           npm install
           npm run build
 
+      - name: Check build output
+        run: ls -l ./dist  # Debugging step
+
       - name: Upload production artifact
         uses: actions/upload-artifact@v4
         with:
           name: production
-          path: ./dist
+          path: ./dist  # Change to your actual output directory
 
   deploy:
     needs: build
@@ -45,5 +48,4 @@ jobs:
           name: production
       
       - name: Deploy to GitHub Pages
-        id: deployment
         uses: actions/deploy-pages@v2
