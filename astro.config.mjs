@@ -10,5 +10,8 @@ export default defineConfig({
 
   vite: {
     plugins: [tailwindcss()]
-  }
+  },
+
+  site: 'https://confinlay.github.io',
+  base: '/StarPlayers',
 });
