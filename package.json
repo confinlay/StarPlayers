@@ -17,6 +17,7 @@
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
     "astro": "^5.2.3",
+    "lru-cache": "^11.0.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "tailwindcss": "^4.0.4"

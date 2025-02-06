@@ -233,13 +233,13 @@ export default function Player() {
   const currentSong = getCurrentSongKey(playerState, starPlayers, shuffledSongs, shuffledStars);
   return (
     <div className="h-screen flex items-center justify-center bg-zinc-900 text-zinc-50">
-      <div className="w-[min(800px,90vw)] bg-zinc-800 rounded-lg shadow-2xl">
+      <div className="w-[min(700px,90vw)] bg-zinc-800 rounded-lg shadow-2xl">
         {/* Fixed Player Section */}
-        <div className="p-6">
+        <div className="p-4">
           {/* Current Song Display */}
-          <div className="mb-4">
-            <div className="flex items-center gap-4 bg-white/5 rounded-lg p-4">
-              <div className="w-[min(128px,20vw)] h-[min(128px,20vw)] relative">
+          <div className="mb-3">
+            <div className="flex items-center gap-3 bg-white/5 rounded-lg p-3">
+              <div className="w-[min(100px,20vw)] h-[min(100px,20vw)] relative">
                 <img
                   src={`${baseUrl}/images/${currentSong}.jpg`}
                   alt={`${songTitles[currentSong].title} Cover`}
@@ -247,70 +247,70 @@ export default function Player() {
                 />
               </div>
               <div>
-                <h1 className="text-2xl font-bold">{songTitles[currentSong].title}</h1>
-                <p className="text-zinc-400">{songTitles[currentSong].artist}</p>
+                <h1 className="text-xl font-bold">{songTitles[currentSong].title}</h1>
+                <p className="text-zinc-400 text-sm">{songTitles[currentSong].artist}</p>
               </div>
             </div>
           </div>
 
           {/* Playback Controls */}
-          <div className="flex flex-col items-center gap-4 mb-4">
-            <div className="flex items-center gap-6">
+          <div className="flex flex-col items-center gap-3 mb-3">
+            <div className="flex items-center gap-4">
               <button 
-                className={`p-2 rounded-full hover:text-white transition-colors ${
+                className={`p-1.5 rounded-full transition-colors ${
                   playerState.pendingMode !== null
-                    ? playerState.pendingMode === 'SHUFFLE' ? 'text-green-500' : 'text-zinc-400'
-                    : playerState.mode === 'SHUFFLE' ? 'text-green-500' : 'text-zinc-400'
+                    ? playerState.pendingMode === 'SHUFFLE' ? 'text-green-500 hover:text-green-300' : 'text-zinc-400 hover:text-white'
+                    : playerState.mode === 'SHUFFLE' ? 'text-green-500 hover:text-green-300' : 'text-zinc-400 hover:text-white'
                 }`}
                 onClick={toggleShuffle}
                 title="Shuffle (queued)"
               >
-                <i className="fas fa-random text-xl"></i>
+                <i className="fas fa-random text-lg"></i>
               </button>
               
               <button 
-                className="p-2 text-zinc-400 hover:text-white transition-colors" 
+                className="p-1.5 text-zinc-400 hover:text-white active:text-green-500 transition-colors" 
                 onClick={prevSong}
                 title="Previous"
               >
-                <i className="fas fa-backward text-xl"></i>
+                <i className="fas fa-backward text-lg"></i>
               </button>
               
               <button 
-                className="p-4 bg-green-500 rounded-full hover:scale-110 transition-transform"
+                className="p-3 bg-green-500 rounded-full hover:scale-110 active:bg-green-600 transition-all"
                 onClick={handlePlayPause}
                 title="Play / Pause"
               >
-                <i className={`fas ${playerState.isPlaying ? 'fa-pause' : 'fa-play'} text-black text-xl`}></i>
+                <i className={`fas ${playerState.isPlaying ? 'fa-pause' : 'fa-play'} text-black text-lg`}></i>
               </button>
               
               <button 
-                className="p-2 text-zinc-400 hover:text-white transition-colors" 
+                className="p-1.5 text-zinc-400 hover:text-white active:text-green-500 transition-colors" 
                 onClick={nextSong}
                 title="Next"
               >
-                <i className="fas fa-forward text-xl"></i>
+                <i className="fas fa-forward text-lg"></i>
               </button>
               
               <button 
-                className={`p-2 rounded-full hover:text-white transition-colors ${
+                className={`p-1.5 rounded-full transition-colors ${
                   playerState.pendingMode !== null
-                    ? playerState.pendingMode === 'STAR' ? 'text-yellow-500' : 'text-zinc-400'
-                    : playerState.mode === 'STAR' ? 'text-yellow-500' : 'text-zinc-400'
+                    ? playerState.pendingMode === 'STAR' ? 'text-yellow-500 hover:text-yellow-300' : 'text-zinc-400 hover:text-white'
+                    : playerState.mode === 'STAR' ? 'text-yellow-500 hover:text-yellow-300' : 'text-zinc-400 hover:text-white'
                 }`}
                 onClick={toggleStarPlay}
                 title="StarPlay (queued)"
               >
-                <i className="fas fa-star text-xl"></i>
+                <i className="fas fa-star text-lg"></i>
               </button>
             </div>
           </div>
         </div>
 
         {/* Scrollable Song List */}
-        <div className="max-h-[min(calc(80vh-320px),500px)] overflow-y-auto">
-          <div className="p-6 pt-0">
-            <h2 className="text-lg font-bold mb-2">Songs</h2>
+        <div className="max-h-[min(calc(95vh-280px),600px)] overflow-y-auto">
+          <div className="p-4 pt-0">
+            <h2 className="text-base font-bold mb-2">Songs</h2>
             <div className="bg-zinc-800/50 rounded-lg">
               {songs.map((song, index) => (
                 <div
@@ -327,11 +327,11 @@ export default function Player() {
                     song === currentSong ? 'bg-white/20' : ''
                   }`}
                 >
-                  <div className="flex items-center gap-4">
-                    <span className="text-zinc-400 w-6">{index + 1}</span>
+                  <div className="flex items-center gap-3">
+                    <span className="text-zinc-400 w-5 text-sm">{index + 1}</span>
                     <div>
-                      <p className="font-medium text-left">{songTitles[song].title}</p>
-                      <p className="text-sm text-zinc-400 text-left">{songTitles[song].artist}</p>
+                      <p className="font-medium text-left text-sm">{songTitles[song].title}</p>
+                      <p className="text-xs text-zinc-400 text-left">{songTitles[song].artist}</p>
                     </div>
                   </div>
                   <button
@@ -339,10 +339,10 @@ export default function Player() {
                       e.stopPropagation();
                       toggleStar(song);
                     }}
-                    className="p-2 hover:text-yellow-500 transition-colors"
+                    className="p-1.5 hover:text-yellow-500 transition-colors"
                     title="Toggle Star"
                   >
-                    <i className={`${starPlayers.has(song) ? 'fas text-yellow-500' : 'far'} fa-star`}></i>
+                    <i className={`${starPlayers.has(song) ? 'fas text-yellow-500' : 'far'} fa-star text-sm`}></i>
                   </button>
                 </div>
               ))}
