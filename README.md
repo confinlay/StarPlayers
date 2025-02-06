@@ -1,48 +1,29 @@
-# Astro Starter Kit: Basics
 
-```sh
-npm create astro@latest -- --template basics
-```
+# Star Players
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+This is a simple project I put together to learn a bit more about frontend development.
+It's a Spotify-esque music player with a new feature - _Star Players_.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+<a href="https://conorfinlay.me/star-players" target="_blank" rel="noopener noreferrer">
+  <img src="https://conorfinlay.me/Star_players_screenshot.png" alt="Star Players Screenshot" class="rounded-lg" />
+  <figcaption class="text-center mt-2">Screengrab of the app (click to try it out!)</figcaption>
+</a>
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
 
-## 🚀 Project Structure
+The idea for the feature came from an observation I had - when organising my music in 
+playlists, I would often create two copies of the same playlist. One contained all of the songs
+that matched the vibe I was going for, and the other was a subset of that playlist, 
+keeping only the songs I loved and wanted to play on repeat. If I was leaving music on in
+the background, I would play the longer playlist. Other times, if I had my headphones on and was ready to 
+really focus on the music, I would play the playlist with only my faves. 
 
-Inside of your Astro project, you'll see the following folders and files:
+This gave me an idea for a feature - what if you could just highlight certain songs in
+your playlists, and have a separate shuffle mode for your highlighted songs? Most music players
+already use the heart symbol for "liking" songs, so it would have to be a star instead. Hence _Star Players_!
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+I built a simple demo of the feature, with Astro, React, and Tailwind. It consists of a 
+playlist of songs, along with the usual media player features. The star icon next to each
+song title allows you to add them to your _Star Players_, and a separate shuffle mode in 
+the media player allows you to initiate _StarPlay_.
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+You can check out the demo [here](https://conorfinlay.me/star-players).
