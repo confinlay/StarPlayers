@@ -5,7 +5,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   site: 'https://confinlay.github.io',
-  base: '/StarPlayers',
+  base: '/star-players',
   integrations: [react()],
 
   vite: {

@@ -21,7 +21,7 @@ const songTitles = {
 };
 const songs = Object.keys(songTitles);
 const noStarsMessage = "You haven't starred any songs yet! Star a few songs, and then try again.";
-const baseUrl = '/StarPlayers';
+const baseUrl = '/star-players';
 
 // Helper: Fisher-Yates shuffle that returns a *new* array
 function shuffleArray(array) {
