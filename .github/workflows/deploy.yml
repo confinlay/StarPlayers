@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
   workflow_dispatch:
 
 permissions:
@@ -16,37 +16,33 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18.17.1'
+          node-version: 18
 
-      - name: Install dependencies and build
-        run: |
-          npm install
-          npm run build
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
 
-      - name: Check build output
-        run: ls -l ./dist  # Debugging step
+      - name: Install dependencies
+        run: npm install
 
-      - name: Upload production artifact
-        uses: actions/upload-artifact@v4
+      - name: Build Astro site
+        run: npm run build
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          name: github-pages
-          path: ./dist
+          path: dist
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
     environment:
       name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Download production artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: github-pages
-      
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4
