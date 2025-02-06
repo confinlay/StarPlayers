@@ -21,7 +21,6 @@ const songTitles = {
 };
 const songs = Object.keys(songTitles);
 const noStarsMessage = "You haven't starred any songs yet! Star a few songs, and then try again.";
-const baseUrl = '/star-players';
 
 // Helper: Fisher-Yates shuffle that returns a *new* array
 function shuffleArray(array) {
@@ -50,7 +49,7 @@ function getCurrentSongKey({ mode, currentSongIndex, manual }, starPlayers, shuf
   return pool[currentSongIndex % pool.length];
 }
 
-export default function Player() {
+export default function Player({ baseUrl = '/star-players' }) {
   const [playerState, setPlayerState] = useState({
     currentSongIndex: 0,
     isPlaying: false,
