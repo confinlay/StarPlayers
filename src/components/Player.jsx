@@ -221,11 +221,33 @@ export default function Player({ baseUrl = '/star-players' }) {
 
   // Toggle star for a given song
   const toggleStar = (song) => {
-    setStarPlayers(prev => {
-      const newSet = new Set(prev);
-      newSet.has(song) ? newSet.delete(song) : newSet.add(song);
-      return newSet;
-    });
+    // Capture the current song key from the old state
+    const currentSongKey = getCurrentSongKey(playerState, starPlayers, shuffledSongs, shuffledStars);
+    
+    // Build a new starred set based on the existing one and toggle the song
+    const newSet = new Set(starPlayers);
+    newSet.has(song) ? newSet.delete(song) : newSet.add(song);
+    
+    if (playerState.mode === 'STAR') {
+      const newStarArray = Array.from(newSet);
+      setShuffledStars(newStarArray);
+      
+      if (newStarArray.length === 0) {
+        // If there are no starred songs left, revert to NORMAL mode
+        setPlayerState(prev => ({ ...prev, mode: 'NORMAL', currentSongIndex: 0 }));
+        alert("You removed the last starred song! Reverting to NORMAL mode.");
+        nextSong();
+      } else if (newStarArray.includes(currentSongKey)) {
+        // current song is still starred – update its index based on the new order
+        const newIndex = newStarArray.indexOf(currentSongKey);
+        setPlayerState(prev => ({ ...prev, currentSongIndex: newIndex }));
+      } else {
+        // current song was unstarred – move to the next one
+        nextSong();
+      }
+    }
+    
+    setStarPlayers(newSet);
   };
 
   // The currently playing song key
@@ -246,8 +268,8 @@ export default function Player({ baseUrl = '/star-players' }) {
                 />
               </div>
               <div>
-                <h1 className="text-xl font-bold">{songTitles[currentSong].title}</h1>
-                <p className="text-zinc-400 text-sm">{songTitles[currentSong].artist}</p>
+                <h1 className="text-xl font-bold text-left">{songTitles[currentSong].title}</h1>
+                <p className="text-zinc-400 text-sm text-left">{songTitles[currentSong].artist}</p>
               </div>
             </div>
           </div>
